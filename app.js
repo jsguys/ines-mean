@@ -1,8 +1,13 @@
 var express = require('express');
 var app = express();
 
+app.set('view engine', 'jade');
+app.set('views', __dirname + '/views');
+
+app.use(express.static('public'));
+
 app.get('/', function (req, res) {
-    res.send('INES sponsored by MEAN and Icecream!');
+    res.render('layouts/slides/intro');
 });
 
 var server = app.listen(3000, function () {

@@ -1,0 +1,72 @@
+.bordered {
+  border: 1px solid
+}
+
+h1 {
+  font-size: 1.6rem;
+}
+
+#header {
+  border-bottom-width: 1.5em;
+  border-bottom-style: solid;
+  padding-top: 0.75em;
+}
+
+.logo {
+   background: url('//www.fondsfinanz.de/images/ff_startseite/ff_logo_2013.png') 95% center no-repeat;
+   padding-top: 1em;
+   padding-bottom: 1em;
+}
+
+.border-color-blue {
+  border-color: #00447a;
+}
+
+.border-color-gray-light {
+  border-color: #d1d8dc;
+}
+
+.border-color-gray-dark {
+  border-color: #4c575f;
+}
+
+.border-color-orange {
+  border-color: #e76d00;
+}
+
+.text-color-blue {
+  color: #00447a;
+}
+
+.text-color-gray-light {
+  color: #d1d8dc;
+}
+
+.text-color-gray-dark {
+  color: #4c575f;
+}
+
+.text-color-orange {
+  color: #e76d00;
+}
+
+.bg-color-blue {
+  background-color: #00447a
+}
+
+.bg-color-gray-light {
+  background-color: #d1d8dc;
+}
+
+.bg-color-gray-dark {
+  background-color: #4c575f;
+}
+
+.bg-color-orange {
+  background-color: #e76d00;
+}
+
+.intro h2 {
+  font-size: 2.1666667rem;
+  font-weight: bold;
+}
