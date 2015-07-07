@@ -1,8 +1,21 @@
 var express = require('express');
+var mongoose = require('mongoose');
+var jade = require('jade');
+
+var config = require('./config/app');
+var dbconfig = require('./config/db');
 var app = express();
 
+var factory = require('./factories/db/dbFactory');
+var driver = factory.getDriver(dbconfig.driver, function (driver) {
+    console.log(driver);
+});
+
 app.get('/', function (req, res) {
-    res.send('INES sponsored by MEAN and Icecream!');
+    var fn = jade.compileFile('templates/start.jade', {pretty: true});
+    var html = fn(config);
+
+    res.send(html);
 });
 
 var server = app.listen(3000, function () {
