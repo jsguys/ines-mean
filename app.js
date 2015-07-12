@@ -1,21 +1,30 @@
 var express = require('express');
-var mongoose = require('mongoose');
-var jade = require('jade');
 
-var config = require('./config/app');
 var dbconfig = require('./config/db');
 var app = express();
 
 var factory = require('./factories/db/dbFactory');
-var driver = factory.getDriver(dbconfig.driver, function (driver) {
-    console.log(driver);
-});
 
-app.get('/', function (req, res) {
-    var fn = jade.compileFile('templates/start.jade', {pretty: true});
-    var html = fn(config);
+app.route('/').get(function (req, res) {
+    factory.getDriver(dbconfig.driver, function (db) {
+        db.connect(dbconfig.host, dbconfig.port, dbconfig.database, dbconfig.user, dbconfig.password);
 
-    res.send(html);
+        var Person = require('./models/entities/Person');
+        db.setModel(Person);
+
+        db.crud(db.ACTIONS.READ, {}, function (result) {
+            console.log(result);
+        });
+
+        var Presentation = require('./models/entities/Presentation');
+        db.setModel(Presentation);
+
+        db.crud(db.ACTIONS.READ, {}, function (result) {
+            console.log(result);
+        });
+
+        res.send('root');
+    });
 });
 
 var server = app.listen(3000, function () {
