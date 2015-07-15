@@ -1,5 +1,5 @@
 {
-  "name": "ines-mean",
+  "name": "inespresentation",
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
@@ -8,13 +8,18 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://www.github.com/jsguys/ines-mean.git"
+    "url": "https://www.github.com/jsguys/inespresentation.git"
   },
-  "author": "jsguys (Manuel Schächinger & Maik Paulus)",
+  "author": "jsguys",
+  "contributors": [
+    "Manuel Schächinger <manuel@schaechinger.com> (http://www.schaechinger.com)",
+    "Maik Paulus <paulus@jsguys.net>"
+  ],
   "license": "MIT",
   "dependencies": {
     "express": "^4.13.0",
     "grunt": "^0.4.5",
-    "mongoose": "^4.0.6"
+    "mongoose": "^4.0.6",
+    "socket.io": "^1.3.5"
   }
 }
