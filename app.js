@@ -5,22 +5,26 @@ var app = express();
 
 var factory = require('./factories/db/dbFactory');
 
+var Person = require('./models/entities/Person');
+var Presentation = require('./models/entities/Presentation');
+
 app.route('/').get(function (req, res) {
     factory.getDriver(dbconfig.driver, function (db) {
         db.connect(dbconfig.host, dbconfig.port, dbconfig.database, dbconfig.user, dbconfig.password);
 
-        var Person = require('./models/entities/Person');
-        db.setModel(Person);
-
+        db.setEntity(Person);
         db.crud(db.ACTIONS.READ, {}, function (result) {
-            console.log(result);
+           console.log(1, result);
         });
 
-        var Presentation = require('./models/entities/Presentation');
-        db.setModel(Presentation);
-
+        db.setEntity(Presentation);
         db.crud(db.ACTIONS.READ, {}, function (result) {
-            console.log(result);
+            console.log(2, result);
+        });
+
+        db.setEntity(Person);
+        db.crud(db.ACTIONS.READ, {}, function (result) {
+            console.log(3, result);
         });
 
         res.send('root');

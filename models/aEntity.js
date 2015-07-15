@@ -1,14 +1,17 @@
-var mongoose = require('mongoose');
 var _collection = '';
 var _schema = '';
 
-module.exports = function (collection, schema) {
-    _collection = collection;
-    _schema = schema;
+var aEntity = function (collection, schema) {
+    this._collection = collection;
+    this._schema = schema;
 
-    return {
-        getModel: function () {
-            return mongoose.model(_collection, _schema, _collection);
-        }
+    this.getCollection = function () {
+        return this._collection;
     };
+
+    this.getSchema = function () {
+        return this._schema;
+    }
 };
+
+module.exports = aEntity;

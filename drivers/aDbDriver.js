@@ -1,5 +1,5 @@
 var driver = function () {
-    var _model = '';
+    var _entity = '';
 
     return {
         ACTIONS: {
@@ -9,12 +9,12 @@ var driver = function () {
             DELETE: 3
         },
 
-        getModel: function () {
-            return _model;
+        getEntity: function () {
+            return _entity;
         },
 
-        setModel: function (entity) {
-            _model = entity.getModel();
+        setEntity: function (entity) {
+            _entity = entity;
         },
 
         connect: function (host, port, username, password, database) {
