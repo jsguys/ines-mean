@@ -1,33 +1,19 @@
 var express = require('express');
-
-var dbconfig = require('./config/db');
 var app = express();
 
-var factory = require('./factories/db/dbFactory');
+var ApiController = require('./controllers/ApiController');
 
-var Person = require('./models/entities/Person');
-var Presentation = require('./models/entities/Presentation');
+app.get('/api/:action/:entity', function (req, res) {
+    var api = new ApiController(req.params);
+    api.execute(function (data) {
+        res.json(data);
+    });
+});
 
-app.route('/').get(function (req, res) {
-    factory.getDriver(dbconfig.driver, function (db) {
-        db.connect(dbconfig.host, dbconfig.port, dbconfig.database, dbconfig.user, dbconfig.password);
-
-        db.setEntity(Person);
-        db.crud(db.ACTIONS.READ, {}, function (result) {
-           console.log(1, result);
-        });
-
-        db.setEntity(Presentation);
-        db.crud(db.ACTIONS.READ, {}, function (result) {
-            console.log(2, result);
-        });
-
-        db.setEntity(Person);
-        db.crud(db.ACTIONS.READ, {}, function (result) {
-            console.log(3, result);
-        });
-
-        res.send('root');
+app.get('/api/:action/:entity/:key/:value', function (req, res) {
+    var api = new ApiController(req.params);
+    api.execute(function (data) {
+        res.json(data);
     });
 });
 
@@ -37,3 +23,7 @@ var server = app.listen(3000, function () {
 
     console.log('Example app listening at http://%s:%s', host, port);
 });
+
+String.prototype.capitalize = function() {
+    return this.replace(/(?:^|\s)\S/g, function(a) { return a.toUpperCase(); });
+};

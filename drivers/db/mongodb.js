@@ -1,18 +1,22 @@
 var db = require('../aDbDriver.js')();
 var mongoose = require('mongoose');
 
-mongoose.connection.on('error', function () {
+mongoose.connection.on('error', function (err) {
     console.log('[MongoDB Driver] Error while trying to connect');
 });
 
 db._models = [];
 
 db.connect = function (host, port, database, user, password) {
-    mongoose.connect('mongodb://' + user + ':' + password + '@' + host + ':' + port + '/' + database);
+    if (!mongoose.connection.readyState) {
+        mongoose.connect('mongodb://' + user + ':' + password + '@' + host + ':' + port + '/' + database);
+    }
 };
 
 db.disconnect = function () {
-    mongoose.disconnect();
+    if (mongoose.connection.readyState) {
+        mongoose.disconnect();
+    }
 };
 
 db.getModel = function () {

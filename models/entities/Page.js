@@ -5,7 +5,9 @@ var _schema = {
     successor: ObjectId,
     layout: ObjectId,
     page_content: ObjectId,
-    rank: Number
+    rank: Number,
+    chapter: String
 };
 
-module.exports = require('../aEntity')(_collection, _schema);
+var Entity = require('../aEntity');
+module.exports = new Entity(_collection, _schema);

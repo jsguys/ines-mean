@@ -3,4 +3,5 @@ var _schema = {
     data: Array
 };
 
-module.exports = require('../aEntity')(_collection, _schema);
+var Entity = require('../aEntity');
+module.exports = new Entity(_collection, _schema);
