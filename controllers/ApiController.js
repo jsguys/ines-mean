@@ -3,33 +3,40 @@ var dbDriver = require('../drivers/db/mongodb');
 var dbFactory = require('../factories/db/dbFactory');
 
 var ApiController = function (params) {
-    this.action = params.action || '';
-    this.action = this.action.toUpperCase();
-
     this.entity = params.entity || '';
     this.entity.capitalize();
 
     this.key = params.key || '';
     this.value = params.value || '';
+
+    this.data = params.data || null;
 };
 
-ApiController.prototype.execute = function (callback) {
+ApiController.prototype.execute = function (action, callback) {
+    this.action = action.toUpperCase();
+
     switch (dbDriver.ACTIONS[this.action]) {
         case dbDriver.ACTIONS.READ:
-            this.findData(function (data) {
+            this.find(function (data) {
                 callback(data);
             });
             break;
 
         case dbDriver.ACTIONS.CREATE:
+            this.insert(function (data) {
+                callback(data);
+            });
+            break;
+
         case dbDriver.ACTIONS.UPDATE:
+            this.update(function (data) {
+                callback(data);
+            });
+            break;
+
         case dbDriver.ACTIONS.DELETE:
-            callback({
-                success: false,
-                error: {
-                    code: 101,
-                    msg: 'requested action is not implemented yet'
-                }
+            this.insert(function (data) {
+                callback(data);
             });
             break;
 
@@ -45,7 +52,7 @@ ApiController.prototype.execute = function (callback) {
     }
 };
 
-ApiController.prototype.findData = function (callback) {
+ApiController.prototype.find = function (callback) {
     var self = this;
 
     dbFactory.getDriver(dbConfig.driver, function (db) {
@@ -55,13 +62,7 @@ ApiController.prototype.findData = function (callback) {
             db.setEntity(collection.data);
 
             var filter = {};
-            if (self.key && self.value) {
-                var matchParam = {};
-                var regex = new RegExp('^' + self.value, "i");
-
-                matchParam[self.key] = regex;
-                filter.match = matchParam;
-            }
+            filter.match = self.buildMatchObject();
 
             db.crud(db.ACTIONS[self.action], filter, function (result) {
                 callback({
@@ -95,6 +96,71 @@ ApiController.prototype.parseEntity = function () {
         success: true,
         data: entity
     };
+};
+
+ApiController.prototype.insert = function (callback) {
+    var self = this;
+
+    dbFactory.getDriver(dbConfig.driver, function (db) {
+        var collection = self.parseEntity();
+        if (collection.success) {
+            db.connect(dbConfig.host, dbConfig.port, dbConfig.database, dbConfig.user, dbConfig.password);
+            db.setEntity(collection.data);
+
+            db.crud(db.ACTIONS[self.action], self.data, function (result) {
+                callback({
+                    success: true,
+                    data: result
+                });
+            });
+        }
+    });
+};
+
+ApiController.prototype.update = function (callback) {
+    var self = this;
+
+    dbFactory.getDriver(dbConfig.driver, function (db) {
+        var collection = self.parseEntity();
+        if (collection.success) {
+            db.connect(dbConfig.host, dbConfig.port, dbConfig.database, dbConfig.user, dbConfig.password);
+            db.setEntity(collection.data);
+
+            self.data.match = self.buildMatchObject();
+
+            if (self.data.options && self.data.options.upsert) {
+                self.data.options.upsert = self.data.options.upsert === '1';
+            }
+
+            db.crud(db.ACTIONS[self.action], self.data, function (result) {
+                callback({
+                    success: true,
+                    data: result
+                });
+            });
+        }
+    });
+};
+
+ApiController.prototype.buildMatchObject = function () {
+    var self = this;
+
+    if (self.key && self.value) {
+        var match = {};
+
+        try {
+            var regex = new RegExp('^' + self.value + '$', 'i');
+            match[self.key] = regex;
+            return match;
+        }
+        catch (e) {
+            console.log(e);
+
+            return {phpguys: true};
+        }
+    }
+
+    return null;
 };
 
 module.exports = ApiController;

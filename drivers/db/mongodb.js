@@ -78,4 +78,30 @@ db.read = function (data, callback) {
     }
 };
 
+db.update = function (data, callback) {
+    if (typeof data !== 'object') {
+        console.log('[MongoDB Driver] Error: data has to be an object');
+        return;
+    }
+
+    var entity = this.getEntity();
+
+    if (entity) {
+        var model = this.getModel(entity);
+
+        console.log(data);
+        model.update(data.match, data.update, data.options, function (err, data) {
+            if (err) {
+                console.log('[MongoDB Driver] Error updating data');
+            }
+            else {
+                callback(data);
+            }
+        });
+    }
+    else {
+        console.log('[MongoDB Driver] Error: entity was not found');
+    }
+};
+
 module.exports = db;
