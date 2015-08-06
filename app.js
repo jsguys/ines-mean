@@ -1,4 +1,5 @@
 var express = require('express');
+var http = require('http');
 
 var dbconfig = require('./config/db');
 var app = express();
@@ -17,7 +18,7 @@ app.get('/api', function (res, res) {
 
         db.setEntity(Person);
         db.crud(db.ACTIONS.READ, {}, function (result) {
-           console.log(1, result);
+            console.log(1, result);
         });
 
         db.setEntity(Presentation);
@@ -34,9 +35,14 @@ app.get('/api', function (res, res) {
     });
 });
 
-var server = app.listen(3000, function () {
-  var host = server.address().address;
-  var port = server.address().port;
+app.get('/', function (req, res) {
+    res.write('okay').end();
+});
 
-  console.log('Example app listening at http://%s:%s', host, port);
+var server = http.createServer(app);
+
+var io = require('./io')(server);
+
+server.listen(app.get('port'), function () {
+    console.log('express running on port ' + app.get('port'));
 });

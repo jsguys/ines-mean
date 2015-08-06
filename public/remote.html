@@ -1,16 +1,18 @@
 <!DOCTYPE html>
 <html ng-app="presentation">
 <head lang="de">
-	<title>Presentation Slide</title>
+	<title>Remote</title>
 	<link href="/vendor/normalize/3.0.3/normalize.css" rel="stylesheet">
 	<link href="/vendor/foundation/5.5.2/foundation.min.css" rel="stylesheet">
-	<link href="/css/style.css" rel="stylesheet">
+	<link href="/css/remote.css" rel="stylesheet">
 	<script src="/socket.io/socket.io.js"></script>
 </head>
 
-<body ng-controller="PresentationController as presentationCtrl">
-	<div layout></div>
-
+<body ng-controller="RemoteController as remoteCtrl">
+	<button ng-click="remoteCtrl.startRemote()">Start</button>
+	
+	<div>{{remoteCtrl.key}}</div>
+	
 	<script src="/vendor/angular/1.4.2/angular.min.js"></script>
 	<script src="/js/app.js"></script>
 </bod>
