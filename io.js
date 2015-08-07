@@ -12,12 +12,11 @@ module.exports = function (app) {
 		io.on('connection', function(socket){
 			socket.join(ROOM_AUDIENCE);
 
-			socket.on('hello', function (data) {
-			    socket.emit('welcome', {
-			        page: 0,
-			        presentation: 'inespresentation'
-			    });
-		    });
+            // check if presentation is open?
+            socket.emit('welcome', {
+                page: 0,
+                presentation: 'inespresentation'
+            });
 
 		    // remote navigation
 		    socket.on('remote', function (data) {
@@ -45,18 +44,7 @@ module.exports = function (app) {
 
 		    	if (data.hasOwnProperty('key') && data.hasOwnProperty('type')) {
 		    		if (remoteKey === data.key) {
-		    			switch (data.type) {
-		    				case 'next':
-		    					io.to(ROOM_AUDIENCE).emit('next', {});
-		    					break;
-
-	    					case 'stop':
-		    					io.to(ROOM_AUDIENCE).emit('stop', {});
-	    						break;
-
-    						default:
-    							break;
-		    			}
+		    			io.to(ROOM_AUDIENCE).emit(data.type, {});
 
 		    			response = createSuccessResponse({
 		    				message: 'Audience updated'
@@ -72,6 +60,13 @@ module.exports = function (app) {
 
 		    	socket.emit('navigation', response);
 		    });
+
+            socket.on('disconnect', function () {
+                if (false !== socket.rooms.indexOf(ROOM_REMOTE)) {
+                    remoteKey = null;
+                    socket.leave(ROOM_REMOTE);
+                }
+            });
 		});
 	}
 

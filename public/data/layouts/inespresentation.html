@@ -8,7 +8,7 @@
 
 <main role="main" id="content">
 	<div class="row bordered">
-		{{presentationCtrl.page.content}}
+		<page></page>
 	</div>
 </main>
 
@@ -16,8 +16,6 @@
 	<div class="row">
 		<p class="columns small-12 medium-5 large-4 title">{{presentationCtrl.title}}</p>
 		<p class="columns small-12 medium-2 large-4 slide">Slide {{presentationCtrl.page.number}}</p>
-		<div class="columns small-12 medium-5 large-4 time">
-			<p>TIME</p>
-		</div>
+		<p class="columns small-12 medium-5 large-4 time">{{presentationCtrl.listeners}} Listeners</p>
 	</div>
 </footer>
