@@ -30,3 +30,8 @@ node_modules
 config/db.js
 .idea
 app.sublime-workspace
+
+# generated files
+public/css
+public/js
+public/data

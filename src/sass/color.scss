@@ -1,0 +1,54 @@
+$blue:        #00447a;
+$gray-dark:   #4c575f;
+$gray-light:  #d1d8dc;
+$orange:      #e76d00;
+$trans-green: rgba(0, 128, 0, 0.2);
+$trans-red:   rgba(210, 15, 7, 0.2);
+
+.border-color-blue {
+  border-color: $blue;
+}
+
+.border-color-gray-light {
+  border-color: $gray-light;
+}
+
+.border-color-gray-dark {
+  border-color: $gray-dark;
+}
+
+.border-color-orange {
+  border-color: $orange;
+}
+
+.text-color-blue {
+  color: $blue;
+}
+
+.text-color-gray-light {
+  color: $gray-light;
+}
+
+.text-color-gray-dark {
+  color: $gray-dark;
+}
+
+.text-color-orange {
+  color: $orange;
+}
+
+.bg-color-blue {
+  background-color: $blue
+}
+
+.bg-color-gray-light {
+  background-color: $gray-light;
+}
+
+.bg-color-gray-dark {
+  background-color: $gray-dark;
+}
+
+.bg-color-orange {
+  background-color: $orange;
+}
