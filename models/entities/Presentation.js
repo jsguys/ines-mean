@@ -1,8 +1,8 @@
 var _collection = 'presentation';
 var _schema = {
     title: String,
-    author: Array,
-    date: Date,
+    authors: Array,
+    date: Number,
     company: {
         name: String,
         department: String,
