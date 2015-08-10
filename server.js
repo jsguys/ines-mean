@@ -1,10 +1,9 @@
 var express = require('express');
 var http = require('http');
-
-var dbconfig = require('./config/db');
-var app = express();
 var bodyParser = require('body-parser');
 var routes = require('./routes/api');
+
+var app = express();
 
 app.use(bodyParser.urlencoded());
 app.use(express.static('public'));
