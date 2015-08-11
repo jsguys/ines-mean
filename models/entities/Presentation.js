@@ -7,6 +7,10 @@ var _schema = {
         name: String,
         department: String,
         location: String
+    },
+    templates: {
+        chapter: ObjectId,
+        presentation: ObjectId
     }
 };
 
