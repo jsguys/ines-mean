@@ -1,6 +1,7 @@
-var _collection = 'layout';
+var _collection = 'template';
 var _schema = {
     title: String,
+    type: String,
     content: String
 };
 
