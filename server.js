@@ -12,7 +12,7 @@ app.post('/api/:entity', routes.api.create);
 app.get('/api/:entity/:key/:value', routes.api.read);
 app.get('/api/:entity', routes.api.read);
 app.put('/api/:entity/:key/:value', routes.api.update);
-app.set('port', process.env.port || 3000);
+app.set('port', process.env.port || 4000);
 
 var server = http.createServer(app);
 var io = require('./io')(server);
