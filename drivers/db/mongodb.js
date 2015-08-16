@@ -11,7 +11,7 @@ db._modelPath = '/models/entities/';
 
 db.connect = function (host, port, database, user, password) {
     if (!mongoose.connection.readyState) {
-        mongoose.connect('mongodb://' + user + ':' + password + '@' + host + ':' + port + '/' + database);
+        mongoose.connect('mongodb://<' + user + ':' + password + '@' + host + ':' + port + '/' + database);
     }
 };
 
