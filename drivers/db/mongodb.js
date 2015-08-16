@@ -7,7 +7,7 @@ mongoose.connection.on('error', function (err) {
 });
 
 db._models = [];
-db._modelPath = '\\models\\entities\\';
+db._modelPath = '/models/entities/';
 
 db.connect = function (host, port, database, user, password) {
     if (!mongoose.connection.readyState) {
