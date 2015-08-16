@@ -23,8 +23,10 @@ db.disconnect = function () {
 
 db.getEntity = function (name) {
     var entity = name;
-    var fullPath = process.mainModule.filename;
-    var requirePath = fullPath.substr(0, fullPath.lastIndexOf('\\'));
+
+    var splitted = process.mainModule.filename.split(path.sep);
+    splitted.pop();
+    var requirePath = splitted.join(path.sep);
 
     try {
         entity = require(path.normalize(requirePath + this._modelPath + entity.capitalize()));
