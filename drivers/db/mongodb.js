@@ -1,5 +1,6 @@
 var db = require('../aDbDriver.js')();
 var mongoose = require('mongoose');
+var path = require('path');
 
 mongoose.connection.on('error', function (err) {
     console.log('[MongoDB Driver] Error while trying to connect');
@@ -22,11 +23,13 @@ db.disconnect = function () {
 
 db.getEntity = function (name) {
     var entity = name;
-    var fullPath = process.mainModule.filename;
-    var requirePath = fullPath.substr(0, fullPath.lastIndexOf('\\'));
+
+    var splitted = process.mainModule.filename.split(path.sep);
+    splitted.pop();
+    var requirePath = splitted.join(path.sep);
 
     try {
-        entity = require(requirePath + this._modelPath + entity.capitalize());
+        entity = require(path.normalize(requirePath + this._modelPath + entity.capitalize()));
     }
     catch (err) {
         return {
@@ -112,7 +115,7 @@ db.read = function (data, callback) {
                 callback(false, err);
             }
             else {
-                if (data.length) {
+                if (data.length === 0) {
                     data = [data];
                 }
                 callback(true, data);

@@ -9,7 +9,7 @@ app.use(bodyParser.urlencoded());
 app.use(express.static('public'));
 
 app.post('/api/:entity', routes.api.create);
-app.get(/api\/(\w+)\/(\w+)\/(\w+)(?:\/(r))?$/, routes.api.read);
+app.get(/^\/api\/(\w+)\/(\w+)\/(\w+)(?:\/(r))?$/, routes.api.read);
 app.get(/^\/api\/(\w+)(?:\/(r))?$/, routes.api.read);
 app.put('/api/:entity/:key/:value', routes.api.update);
 
