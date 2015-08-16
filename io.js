@@ -1,3 +1,5 @@
+var presentation = require('./services/presentation.js');
+
 var io = null;
 
 var ROOM_AUDIENCE = 'audience';
@@ -15,15 +17,20 @@ module.exports = function (app) {
 
       listeners++;
       io.to(ROOM_AUDIENCE).emit('listeners', {
-      	listeners: listeners
+        listeners: listeners
       });
 
-      socket.emit('presentation', {
-          title: 'inespresentation',
-          template: '<p>presentation template</p>'
+      presentation.getPresentation(function (presentation) {
+        if (presentation) {
+          socket.emit('presentation', presentation);
+        }
+      });
+      presentation.getPage(function (page) {
+        if (page) {
+          socket.emit('page', page);
+        }
       });
 
-      // remote navigation
       socket.on('remote', function (data) {
         var response = null;
 
@@ -59,8 +66,6 @@ module.exports = function (app) {
       });
 
       socket.on('disconnect', function () {
-      	listeners--;
-
         if (false !== socket.rooms.indexOf(ROOM_REMOTE)) {
           socket.leave(ROOM_REMOTE);
         }
@@ -68,8 +73,8 @@ module.exports = function (app) {
 
         listeners--;
         io.to(ROOM_AUDIENCE).emit('listeners', {
-	      	listeners: listeners
-	      });
+          listeners: listeners
+        });
       });
     });
   }

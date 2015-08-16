@@ -1,1 +1,6 @@
-<p>This is the start page</p>
+{
+  "_id": ObjectId('55ca3c3396325a8818a26b5a'),
+  "title": "Startseite",
+  "type": "first",
+  "content": "<div class=\"columns small-12 medium-10 large-8 small-centered\"><h1>{{presentation.title}}</h1><p>{{presentation.company.name}}</p><p ng-repeat=\"author in presentation.authors\">{{author.firstname + ' ' + author.surname}}</p><p>{{presentation.company.division}}</p><p>{{presentation.company.location}}, den {{presentation.date | date : 'dd.MM.yyyy'}}</p></div>"
+}

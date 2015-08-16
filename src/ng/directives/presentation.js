@@ -3,8 +3,8 @@ angular.module('presentation').directive('presentation', function ($compile) {
     restrict: 'EA',
     link: function(scope, element, attrs) {
       scope.$watch('presentation', function (presentation) {
-        if (presentation && presentation.template) {
-          var template = $compile(presentation.template)(scope);
+        if (presentation && presentation.templateId) {
+          var template = $compile(presentation.templateId.content)(scope);
           element.replaceWith(template);
         }
       });

@@ -1,11 +1,13 @@
+var bodyParser = require('body-parser');
 var express = require('express');
 var http = require('http');
-var bodyParser = require('body-parser');
+
+var appConfig = require('./config/app.js');
 var routes = require('./routes/api');
 
 var app = express();
 
-app.use(bodyParser.urlencoded());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
 app.post('/api/:entity', routes.api.create);
@@ -17,7 +19,7 @@ app.get('/wifi', function (req, res) {
   res.send(require('./config/wifi.js'));
 });
 
-app.set('port', process.env.port || 4000);
+app.set('port', appConfig.port);
 
 var server = http.createServer(app);
 var io = require('./io')(server);

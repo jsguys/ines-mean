@@ -12,7 +12,7 @@ angular.module('presentation').factory('WebSocket', [
 
       socket.on('page', function (data) {
         console.log('received page', data);
-        controller.updatePage(page);
+        controller.updatePage(data);
         $rootScope.$apply();
       });
 
@@ -28,8 +28,8 @@ angular.module('presentation').factory('WebSocket', [
         $rootScope.$apply();
       });
 
-      socket.on('listener', function (data) {
-        console.log('received listener', data);
+      socket.on('listeners', function (data) {
+        console.log('received listeners', data);
         controller.setListeners(data);
         $rootScope.$apply();
       });
