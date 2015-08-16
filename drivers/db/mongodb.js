@@ -11,7 +11,7 @@ db._modelPath = '/models/entities/';
 
 db.connect = function (host, port, database, user, password) {
     if (!mongoose.connection.readyState) {
-        mongoose.connect('mongodb://<' + user + ':' + password + '@' + host + ':' + port + '/' + database);
+        mongoose.connect('mongodb://' + user + ':' + password + '@' + host + ':' + port + '/' + database);
     }
 };
 
@@ -115,7 +115,7 @@ db.read = function (data, callback) {
                 callback(false, err);
             }
             else {
-                if (data.length) {
+                if (data.length === 0) {
                     data = [data];
                 }
                 callback(true, data);
