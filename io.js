@@ -4,6 +4,7 @@ var ROOM_AUDIENCE = 'audience';
 var ROOM_REMOTE = 'remote';
 
 var remoteKey = null;
+var listeners = 0;
 
 module.exports = function (app) {
   if (null === io) {
@@ -12,59 +13,64 @@ module.exports = function (app) {
     io.on('connection', function(socket){
       socket.join(ROOM_AUDIENCE);
 
-      socket.emit('presentation', {
-          title: 'inespresentation'
+      listeners++;
+      io.to(ROOM_AUDIENCE).emit('listeners', {
+      	listeners: listeners
       });
 
-        // remote navigation
-        socket.on('remote', function (data) {
-          var response = null;
+      socket.emit('presentation', {
+          title: 'inespresentation',
+          template: '<p>presentation template</p>'
+      });
 
-          if (null === remoteKey) {
-            socket.join(ROOM_REMOTE);
-            socket.leave(ROOM_AUDIENCE);
+      // remote navigation
+      socket.on('remote', function (data) {
+        var response = null;
 
-            remoteKey = generateKey();
+        socket.join(ROOM_REMOTE);
+
+        remoteKey = generateKey();
+
+        socket.emit('remote', createSuccessResponse({
+          key: remoteKey
+        }));
+      });
+
+      socket.on('navigation', function (data) {
+        var response = null;
+
+        if (data.hasOwnProperty('type')) {
+          if (false !== socket.rooms.indexOf(ROOM_REMOTE)) {
+            io.to(ROOM_AUDIENCE).emit(data.type, {});
 
             response = createSuccessResponse({
-              key: remoteKey
+              message: 'Audience updated'
             });
           }
           else {
-            response = createErrorResponse('Already connected to remote.');
+            response = createErrorResponse('You are not allowed to navigate.');
           }
+        }
+        else {
+          response = createErrorResponse('Invalid package format.');
+        }
 
-          socket.emit('remote', response);
-        });
+        socket.emit('navigation', response);
+      });
 
-        socket.on('navigation', function (data) {
-          var response = null;
+      socket.on('disconnect', function () {
+      	listeners--;
 
-          if (data.hasOwnProperty('key') && data.hasOwnProperty('type')) {
-            if (remoteKey === data.key) {
-              io.to(ROOM_AUDIENCE).emit(data.type, {});
+        if (false !== socket.rooms.indexOf(ROOM_REMOTE)) {
+          socket.leave(ROOM_REMOTE);
+        }
+        socket.leave(ROOM_AUDIENCE);
 
-              response = createSuccessResponse({
-                message: 'Audience updated'
-              });
-            }
-            else {
-              response = createErrorResponse('Invalid key.');
-            }
-          }
-          else {
-            response = createErrorResponse('Invalid package format.');
-          }
-
-          socket.emit('navigation', response);
-        });
-
-            socket.on('disconnect', function () {
-                if (false !== socket.rooms.indexOf(ROOM_REMOTE)) {
-                    remoteKey = null;
-                    socket.leave(ROOM_REMOTE);
-                }
-            });
+        listeners--;
+        io.to(ROOM_AUDIENCE).emit('listeners', {
+	      	listeners: listeners
+	      });
+      });
     });
   }
 

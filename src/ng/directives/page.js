@@ -1,6 +1,13 @@
-angular.module('presentation').directive('page', function () {
+angular.module('presentation').directive('page', function ($compile) {
   return {
     restrict: 'EA',
-    template: '<div ng-include="pagePath"></div>'
-  }
+    link: function(scope, element, attrs) {
+      scope.$watch('page', function (page) {
+        if (page && page.template) {
+          var template = $compile(page.template)(scope);
+          element.replaceWith(template);
+        }
+      });
+    }
+  };
 });

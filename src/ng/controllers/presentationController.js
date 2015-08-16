@@ -3,32 +3,25 @@ angular.module('presentation').controller('PresentationController', [
   function (WebSocket, $scope, $http) {
     var self = this;
 
-    self.chapters = [];
-    self.listeners = 0;
-    self.page = {};
-    self.presentation = {};
+    $scope.chapters = [];
+    $scope.listeners = 0;
+    $scope.page = {};
+    $scope.presentation = {};
 
-    $scope.layoutPath = '';
-
-    self.setChapters = function (dat) {
-      self.chapters = data.chapters;
+    self.setChapters = function (data) {
+      $scope.chapters = data.chapters;
     };
 
     self.setListeners = function (data) {
-      self.listeners = data.listeners;
+      $scope.listeners = data.listeners;
     };
 
     self.updatePage = function (page) {
-      self.page = page;
-
-      $scope.pagePath = '/data/pages/' + self.page.number + '.html';
+      $scope.page = page;
     };
 
-    $scope.updatePresentation = function (presentation) {
-      console.log('found presentation', presentation);
-      self.presentation = presentation;
-      
-      $scope.layoutPath = '/data/layouts/' + presentation.presentation + '.html';
+    self.updatePresentation = function (presentation) {
+      $scope.presentation = presentation;
     };
 
     WebSocket.init(self);

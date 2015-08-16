@@ -1,11 +1,15 @@
 angular.module('presentation').factory('WebSocket', [
-  '$q', '$scope', '$rootScope',
-  function($q, $scope, $rootScope) {
-    var socket = io.connect(window.location.origin);
+  '$q', '$rootScope',
+  function($q, $rootScope) {
+    var socket = null;
 
     var service = {};
 
     service.init = function (controller) {
+      if (null === socket) {
+        socket = io.connect(window.location.origin);
+      }
+
       socket.on('page', function (data) {
         console.log('received page', data);
         controller.updatePage(page);
@@ -13,8 +17,8 @@ angular.module('presentation').factory('WebSocket', [
       });
 
       socket.on('presentation', function (data) {
-        console.log('received welcome', data);
-        $scope.updatePresentation(data);
+        console.log('received presentation', data);
+        controller.updatePresentation(data);
         $rootScope.$apply();
       });
 
@@ -29,13 +33,13 @@ angular.module('presentation').factory('WebSocket', [
         controller.setListeners(data);
         $rootScope.$apply();
       });
-    };
 
-    socket.on('remote', function (data) {
-      console.log('received remote', data);
-      $scope.start(data);
-      $rootScope.$apply();
-    })
+      socket.on('remote', function (data) {
+        console.log('received remote', data);
+        //$scope.start(data);
+        $rootScope.$apply();
+      });
+    };
 
     service.sendNextPage = function () {
       socket.emit('navigation', {
