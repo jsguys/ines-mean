@@ -13,7 +13,11 @@ app.get(/api\/(\w+)\/(\w+)\/(\w+)(?:\/(r))?$/, routes.api.read);
 app.get(/^\/api\/(\w+)(?:\/(r))?$/, routes.api.read);
 app.put('/api/:entity/:key/:value', routes.api.update);
 
-app.set('port', process.env.port || 3000);
+app.get('/wifi', function (req, res) {
+  res.send(require('./config/wifi.js'));
+});
+
+app.set('port', process.env.port || 4000);
 
 var server = http.createServer(app);
 var io = require('./io')(server);
