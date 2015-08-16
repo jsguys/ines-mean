@@ -1,0 +1,11 @@
+.page.first {
+  .author::after {
+    content: '&';
+    padding: 0 0.5em;
+    width: 1em;
+  }
+
+  .author:last-child::after {
+    content: '';
+  }
+}

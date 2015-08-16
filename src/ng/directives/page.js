@@ -4,7 +4,8 @@ angular.module('presentation').directive('page', function ($compile) {
     link: function(scope, element, attrs) {
       scope.$watch('page', function (page) {
         if (page && page.templateId) {
-          var template = $compile(page.templateId.content)(scope);
+          var content = '<div class="page ' + page.templateId.type + '">' + page.templateId.content + '</div>';
+          var template = $compile(content)(scope);
           element.replaceWith(template);
         }
       });

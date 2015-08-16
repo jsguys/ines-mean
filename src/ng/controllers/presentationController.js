@@ -1,6 +1,6 @@
 angular.module('presentation').controller('PresentationController', [
-  'WebSocket', '$scope', '$http',
-  function (WebSocket, $scope, $http) {
+  'WebSocket', '$scope', '$http', '$filter',
+  function (WebSocket, $scope, $http, $filter) {
     var self = this;
 
     $scope.chapters = [];
@@ -22,6 +22,10 @@ angular.module('presentation').controller('PresentationController', [
 
     self.updatePresentation = function (presentation) {
       $scope.presentation = presentation;
+    };
+
+    self.formatDate = function (date) {
+      return $filter('date')(date, 'dd. MMM yyyy');
     };
 
     WebSocket.init(self);
