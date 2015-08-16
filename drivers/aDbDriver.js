@@ -1,5 +1,5 @@
 var driver = function () {
-    var _entity = '';
+    var _entity = {};
 
     return {
         ACTIONS: {
@@ -14,6 +14,7 @@ var driver = function () {
         },
 
         setEntity: function (entity) {
+
             _entity = entity;
         },
 
