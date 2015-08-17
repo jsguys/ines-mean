@@ -39,6 +39,14 @@ angular.module('presentation').factory('WebSocket', [
         //$scope.start(data);
         $rootScope.$apply();
       });
+
+      socket.on('navigation', function (data) {
+        console.log('received navigation', data);
+      });
+    };
+
+    service.sendLogin = function () {
+      socket.emit('remote');
     };
 
     service.sendNextPage = function () {

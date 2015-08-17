@@ -48,7 +48,10 @@ module.exports = function (app) {
 
         if (data.hasOwnProperty('type')) {
           if (false !== socket.rooms.indexOf(ROOM_REMOTE)) {
-            io.to(ROOM_AUDIENCE).emit(data.type, {});
+            presentation.updatePage(data.type);
+            presentation.getPage(function (page) {
+              io.to(ROOM_AUDIENCE).emit('page', page);
+            });
 
             response = createSuccessResponse({
               message: 'Audience updated'

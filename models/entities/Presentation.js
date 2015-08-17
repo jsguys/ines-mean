@@ -11,7 +11,8 @@ var _schema = {
         location: String
     },
     templateId: {type: mongoose.Schema.Types.ObjectId, ref: 'template'},
-    orderId: {type: mongoose.Schema.Types.ObjectId, ref: 'order'}
+    currentOrderId: {type: mongoose.Schema.Types.ObjectId, ref: 'order'},
+    startOrderId: {type: mongoose.Schema.Types.ObjectId, ref: 'order'}
 };
 
 var Entity = require('../aEntity');

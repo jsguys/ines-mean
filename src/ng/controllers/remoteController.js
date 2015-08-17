@@ -8,12 +8,12 @@ angular.module('presentation').controller('RemoteController', [
     var MODE_LOGIN = 'login';
     var MODE_REMOTE = 'remote';
 
-    WebSocket(self);
+    //WebSocket(self);
 
     self.password = null;
     self.key = null;
 
-    self.mode = MODE_LISTENER;
+    self.mode = MODE_REMOTE;
 
     self.login = function () {
       if (null === self.key) {

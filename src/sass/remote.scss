@@ -1,17 +1,22 @@
 @import 'color';
 
 #remote {
+
   .fullscreen {
-    height: 100%;
+    bottom: 0;
+    position: fixed;
+    top: 0;
   }
 
-  #remote .next {
+  .next {
     @extend .fullscreen;
     background-color: $trans-green;
+    right: 0;
   }
 
-  #remote .previous {
+  .previous {
     @extend .fullscreen;
     background-color: $trans-red;
+    left: 0;
   }
 }

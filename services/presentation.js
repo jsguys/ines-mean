@@ -9,41 +9,83 @@ module.exports = {
   _presentation: null,
 
   getPresentation: function (callback) {
-    this._getProperty(this._presentation, 'presentation', callback);
+    this._getProperty('presentation', callback);
   },
 
   getPage: function (callback) {
     var self = this;
 
-    if (null === self._order) {
+    if (null === self._page) {
       self.getPresentation(function (presentation) {
         if (presentation) {
-          self._order = presentation.orderId;
+          presentation.currentOrderId = presentation.currentOrderId || presentation.startOrderId;
 
-          self._getProperty(self._page, [ 'page', '_id', self._order.pageId ], callback);
+          if (null === self._order) {
+            self._getProperty([ 'order', '_id', presentation.currentOrderId ], function (order) {
+              if (order) {
+                self._getProperty([ 'page', '_id', order.pageId ], callback);
+              }
+            }, false);
+          }
+
+          
         }
       });
     }
     else {
-      self._getProperty(self._page, [ 'page', '_id', self._order.pageId ], callback);
+      callback(self._page);
     }
   },
 
-  _getProperty: function (property, type, callback) {
+  updatePage: function (type) {
     var self = this;
 
-    if (null === property) {
+    switch (type) {
+      case 'next':
+        if (null !== self._order.successor) {
+          self._presentation.currentOrderId = self._order.successor;
+        }
+        break;
+
+      case 'previous':
+        if (null !== self._order.predecessor) {
+          self._presentation.currentOrderId = self._order.predecessor;
+        }
+        break;
+
+      default:
+        break;
+    }
+
+    self._order = null;
+    self._page = null;
+  },
+
+  _getProperty: function (type, callback, recursive) {
+    var self = this;
+
+    if (undefined === recursive) {
+      recursive = true;
+    }
+
+    var property = type;
+    if ('object' === typeof type) {
+      property = property[0];
+    }
+    property = '_' + property;
+
+    if (null === self[property]) {
       self._retrieveDataSet(type, function (dataSet) {
-        property = dataSet;
-        callback(property);
-      });
+        self[property] = dataSet;
+        callback(self[property]);
+      }, recursive);
     }
     else {
-      callback(property);
+      callback(self[property]);
     }
   },
 
-  _retrieveDataSet: function (type, callback) {
+  _retrieveDataSet: function (type, callback, recursive) {
     var self = this;
 
     if ('object' === typeof type) {
@@ -53,14 +95,14 @@ module.exports = {
     self._register(type, callback);
 
     if (1 === self._pending[type].length) {
-      self._sendRequest(type);
+      self._sendRequest(type, recursive);
     }
   },
 
-  _sendRequest: function (type) {
+  _sendRequest: function (type, recursive) {
     var self = this;
 
-    http.get('http://127.0.0.1:' + appConfig.port + '/api/' + type + '/r',
+    http.get('http://127.0.0.1:' + appConfig.port + '/api/' + type + (recursive ? '/r' : ''),
       function(res) {
         var json = '';
         
