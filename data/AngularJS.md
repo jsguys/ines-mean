@@ -3,8 +3,14 @@
 ## Was ist AngularJS
 
 * Frontend Framework
-* Google
+* Single-Page-Apps
+* Erweitert HTML
 * MVW
+
+## Entstehung
+
+* 2009: Entwicklung durch Google
+* 2015: Ankündigung von AngularJS 2.0
 
 ## Expressions
 
@@ -14,7 +20,7 @@
 
 ## Directives
 
-* Logik durch Attribute (*ng-**) und Tags
+* Logik durch HTML Attribute (*ng-**) und Tags
 * Trennung Logik & HTML
 
 ```html
@@ -25,10 +31,25 @@
 </html>
 ```
 
-## 2 way data-binding
+## Filters
+
+* Formatierung / Umwandlung
+* Abstraktion
+
+```javascript
+{{ filter_expression | filter : expression : comparator }}
+{{ 1440720000000 | date : 'dd.mm.yyyy' }}
+{{ 2.7 | currency }}
+```
+
+## two-way data binding
 
 * Aktualisierung von Inhalten
 * Reaktion auf User
+* Erkennung durch $scope
+* Erklärung mit Bild
+  
+  ![Bild](https://angularjs.de/assets/figures/binding-types-c6d3761feda6211a53fd9260194faf23a6caa7d5d47fb29c64b80147402d0ff0.png)
 
 ---
 
@@ -36,48 +57,57 @@
 
 ## Dependency Injection
 
-* Einfache Einbindung von Modlen
+* Einfache Einbindung von Modulen
+* Hoche Wiederverwertung
+* Instanziierung durch Injector
+* Abstraktion und Testbarkeit
 
 ```javascript
-app.controller('MyController', [
-  '$scope', '$http',
+app.controller('MyController',
   function ($scope, $http) {
-    // accessible modules $scope and $http
-  }
-]);
+    // controller logic
+});
 ```
 
 ## Promises
 
-* Erfolgserwartung statt Prüfung
+* Anderer Ansatz zu Callbacks
 * Klarere Struktur / weniger Schachtelungen
 
 ```javascript
 $http.get('/coolpage')
-  .then(function (result) {
+  .success(function (result) {
     // handle result on success
   })
-  .then(function (error) {
+  .error(function (error) {
     // handle error on failure (optional)
   });
 ```
 
 ## Tests
 
-## Think tank
+* Einfach testbar durch DI / Module
+* Karma
 
-* Kleines interaktives Spiel
-** Luftballons schweben durchs Bild, drauf klicken gibt einen Punkt
 
 ## Vergleich zu HTML & jQuery
 
 * Wiederverwendung
 * Bessere Aufteilung
-* Trennung Logik & Template
+* Trennung Logik & Templates
 * Keine DOM-Manipulation
+
 
 ## Zukunft / Ausblick
 
 * Große Beliebtheit
+* Große Community + Google
 
-* AngularJS 2 mit neuem Standard
+* AngularJS 2 mit neuer Basis
+
+
+## Think tank
+
+* Kleines interaktives Spiel
+** Luftballons schweben durchs Bild, drauf klicken gibt einen Punkt
+** Nach jedem Kapitel Daumen hoch/runter zum anklicken
