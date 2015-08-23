@@ -4,6 +4,7 @@
 * serverseitiges JavaScript-Framework
 * Google V8 JavaScript engine
 * schnell und flexibel einsetzbar
+* Open Source
 
 ## Entstehung
 * 2009: entwickelt von Ryan Dahl bei der Firma Joyent
