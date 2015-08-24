@@ -1,0 +1,9 @@
+@import '../color';
+
+.page.code {
+  pre.prettyprint {
+    background-color: $code-background;
+    border: 1px solid $code-border;
+    padding: 1em;
+  }
+}
