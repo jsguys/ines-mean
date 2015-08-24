@@ -17,6 +17,14 @@ app.get('/', function (req, res) {
 var server = app.listen(1337);
 ```
 
+
+## Entstehung
+
+* 2009: Entwickelt von TJ Holowaychuk
+* 2014: Weiterentwicklung durch Doug Wilson
+* 2015: Beliebtestes npm Modul
+
+
 ## Routing
 
 * RegEx für Pfad
@@ -26,6 +34,7 @@ app.post('/api.*', function (req, res) {
   res.status(404).end();
 ]);
 ```
+
 
 ## Req / res
 
@@ -47,4 +56,5 @@ app.post('/api.*', function (req, res) {
 
 ## Zukunft / Ausblick
 
-* Immer mehr Module
+* Immer mehr Middleware
+* Große Community
