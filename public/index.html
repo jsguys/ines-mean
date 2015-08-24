@@ -11,8 +11,19 @@
 </head>
 
 <body ng-controller="PresentationController as presentationCtrl">
-  <presentation></presentation>
-  <remote></remote>
+  <div class="show-for-landscape">
+    <presentation></presentation>
+    <remote></remote>
+  </div>
+  <div class="show-for-portrait">
+    <div class="row">
+      <div class="columns small-12">
+        <p class="info bg-color-gray-light border-color-gray-dark">
+          Bitte halte dein Gerät quer, um die Präsentation zu genießen! :)
+        </p>
+      </div>
+    </div>
+  </div>
 
   <script src="/vendor/angular/1.4.2/angular.min.js"></script>
   <script src="/js/app.min.js"></script>

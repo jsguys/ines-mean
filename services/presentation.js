@@ -18,7 +18,7 @@ module.exports = {
     if (null === self._page) {
       self.getPresentation(function (presentation) {
         if (presentation) {
-          presentation.currentOrderId = presentation.currentOrderId || presentation.startOrderId;
+          presentation.currentOrderId = presentation.currentOrderId || presentation.startOrderId._id;
 
           if (null === self._order) {
             self._getProperty([ 'order', '_id', presentation.currentOrderId ], function (order) {
