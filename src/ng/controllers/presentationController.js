@@ -1,37 +1,33 @@
 angular.module('presentation').controller('PresentationController', [
-  'WebSocket', '$scope', '$http',
-  function (WebSocket, $scope, $http) {
+  'WebSocket', '$scope', '$http', '$filter',
+  function (WebSocket, $scope, $http, $filter) {
     var self = this;
 
-    self.page = {
-      number: -1,
-      title: 'Title',
-      content: null
-    };
-    self.title = 'Presentation title';
-    self.listeners = 0;
+    $scope.chapters = [];
+    $scope.listeners = 0;
+    $scope.page = {};
+    $scope.presentation = {};
 
-    $scope.layoutPath = '';
-
-    self.setPresentation = function (data) {
-      $scope.layoutPath = '/data/layouts/' + data.presentation + '.html';
-      self.page.number = data.page;
-      self.title = data.title;
-
-      self.nextPage(data.page);
+    self.setChapters = function (data) {
+      $scope.chapters = data.chapters;
     };
 
-    self.nextPage = function (page) {
-      if (undefined === page) {
-        self.page.number++;   
-      }
-      else {
-        self.page.number = page;
-      }
+    self.setListeners = function (data) {
+      $scope.listeners = data.listeners;
+    };
 
-      $scope.pagePath = '/data/pages/' + self.page.number + '.html';
-    }
+    self.updatePage = function (page) {
+      $scope.page = page;
+    };
 
-    WebSocket(self);
+    self.updatePresentation = function (presentation) {
+      $scope.presentation = presentation;
+    };
+
+    self.formatDate = function (date) {
+      return $filter('date')(date, 'dd. MMM yyyy');
+    };
+
+    WebSocket.init(self);
   }
 ]);

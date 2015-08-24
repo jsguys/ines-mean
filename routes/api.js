@@ -8,15 +8,38 @@ var api = {
         };
 
         var api = new ApiController(params);
-        api.execute('create', function (data) {
-            res.json(data);
+        api.execute('create', function (success, response) {
+            res.json({
+                success: success,
+                data: response.data || response
+            });
         });
     },
 
     read: function (req, res) {
-        var api = new ApiController(req.params);
-        api.execute('read', function (data) {
-            res.json(data);
+        var input;
+
+        if (Object.keys(req.params).length === 2) {
+            input = {
+                entity: req.params[0],
+                recursive: req.params[1] ? req.params[1] === 'r' : false
+            };
+        }
+        else {
+            input = {
+                entity: req.params[0],
+                key: req.params[1],
+                value: req.params[2],
+                recursive: req.params[3] ? req.params[3] === 'r' : false
+            };
+        }
+
+        var api = new ApiController(input);
+        api.execute('read', function (success, response) {
+            res.json({
+                success: success,
+                data: response.data || response
+            });
         });
     },
 
@@ -33,8 +56,11 @@ var api = {
 
         var api = new ApiController(params);
 
-        api.execute('update', function (data) {
-            res.json(data);
+        api.execute('update', function (success, response) {
+            res.json({
+                success: success,
+                data: response.data || response
+            });
         });
     },
 

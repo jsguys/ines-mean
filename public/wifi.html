@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html ng-app="presentation">
+<head>
+  <meta charset="UTF-8">
+  <title>wifi &ndash; jsguys</title>
+  <link href="/vendor/normalize/3.0.3/normalize.css" rel="stylesheet" media="screen">
+  <link href="/vendor/foundation/5.5.2/foundation.min.css" rel="stylesheet" media="screen">
+  <link href="/css/style.min.css" rel="stylesheet" media="screen">
+</head>
+<body>
+  <div id="wifi">
+    <div class="row clearfix" ng-controller="WifiController as wifiCtrl">
+        <h1>WIFI</h1>
+        
+        <div class="columns small-12 medium-6">
+          <p>SSID</p>
+        </div>
+        <div class="columns small-12 medium-6">
+          <p>
+            <strong>{{wifiCtrl.wifi.ssid}}</strong>
+          </p>
+        </div>
+
+        <div class="columns small-12 medium-6">
+          <p>Passwort</p>
+        </div>
+        <div class="columns small-12 medium-6">
+          <p>
+            <strong>{{wifiCtrl.wifi.password}}</strong>
+          </p>
+        </div>
+      </div>
+
+      <div class="columns small-12 center">
+        <a href="/" class="button">Präsentation starten</a>
+      </div>
+    </div>
+  </div>
+
+  <script src="/vendor/angular/1.4.2/angular.min.js"></script>
+  <script src="/js/app.min.js"></script>
+</body>
+</html>

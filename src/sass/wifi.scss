@@ -1,0 +1,29 @@
+#wifi {
+  font-size: 3em;
+
+  a.button {
+    background-color: #3c0;
+    border: 0.1em solid #ccc;
+    border-radius: 0.5em;
+    color: #fff;
+    display: inline-block;
+    margin: 1em 0;
+    padding: 0.5em;
+    text-decoration: none;
+  }
+
+  h1 {
+    font-size: 1.5em;
+    font-weight: normal;
+    text-align: center;
+  }
+
+  p {
+    margin: 0;
+    padding: 0.25em;
+  }
+
+  .center {
+    text-align: center;
+  }
+}

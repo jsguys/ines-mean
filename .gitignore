@@ -28,6 +28,7 @@ node_modules
 
 # Project specifics
 config/db.js
+config/wifi.js
 .idea
 app.sublime-workspace
 
