@@ -2,8 +2,12 @@ $blue:        #00447a;
 $gray-dark:   #4c575f;
 $gray-light:  #d1d8dc;
 $orange:      #e76d00;
+
 $trans-green: rgba(0, 128, 0, 0.2);
 $trans-red:   rgba(210, 15, 7, 0.2);
+
+$code-background: #f7f7f7;
+$code-border: #e0e0e0;
 
 .border-color-blue {
   border-color: $blue;
