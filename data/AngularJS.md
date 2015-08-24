@@ -9,7 +9,9 @@
 
 ## Entstehung
 
-* 2009: Entwicklung durch Google
+* 2009: Entwicklung von Adam Abrons & Miško Hevery
+* 2010: Open Source auf GitHub
+* 2010: Weiterentwicklung durch Google
 * 2015: Ankündigung von AngularJS 2.0
 
 ## Expressions
@@ -39,7 +41,7 @@
 ```javascript
 {{ filter_expression | filter : expression : comparator }}
 {{ 1440720000000 | date : 'dd.mm.yyyy' }}
-{{ 2.7 | currency }}
+{{ 2.81 | currency }}
 ```
 
 ## two-way data binding
@@ -75,7 +77,7 @@ app.controller('MyController',
 * Klarere Struktur / weniger Schachtelungen
 
 ```javascript
-$http.get('/coolpage')
+$http.get('/get/magic/maik/')
   .success(function (result) {
     // handle result on success
   })
@@ -108,6 +110,5 @@ $http.get('/coolpage')
 
 ## Think tank
 
-* Kleines interaktives Spiel
-** Luftballons schweben durchs Bild, drauf klicken gibt einen Punkt
-** Nach jedem Kapitel Daumen hoch/runter zum anklicken
+* Quiz am Ende der Präsentation
+* Umbau von Orders auf Basis von Audience, Beamer und Remote
