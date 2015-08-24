@@ -4,7 +4,8 @@ var appConfig = require('../config/app.js');
 
 module.exports = {
   _order: null,
-  _page: null,
+  _audiencePage: null,
+  _beamerPage: null,
   _pending: {},
   _presentation: null,
 
@@ -12,10 +13,13 @@ module.exports = {
     this._getProperty('presentation', callback);
   },
 
-  getPage: function (callback) {
+  getPage: function (callback, room) {
     var self = this;
 
-    if (null === self._page) {
+    room = room || 'audience';
+    var property = '_' + room + 'Page';
+
+    if (null === self[property]) {
       self.getPresentation(function (presentation) {
         if (presentation) {
           presentation.currentOrderId = presentation.currentOrderId || presentation.startOrderId._id;
@@ -23,17 +27,20 @@ module.exports = {
           if (null === self._order) {
             self._getProperty([ 'order', '_id', presentation.currentOrderId ], function (order) {
               if (order) {
-                self._getProperty([ 'page', '_id', order.pageId ], callback);
+                // TODO: string can be removed as soon as the database is updated
+                // and the changes are merged with the master branch
+                if ('string' === typeof order.pageId || !order.pageId.hasOwnProperty(room)) {
+                  room = 'audience';
+                }
+                self._getProperty([ property.substr(1), '_id', order.pageId[room] ], callback);
               }
             }, false);
           }
-
-          
         }
       });
     }
     else {
-      callback(self._page);
+      callback(self[property]);
     }
   },
 
@@ -58,7 +65,8 @@ module.exports = {
     }
 
     self._order = null;
-    self._page = null;
+    self._audiencePage = null;
+    self._beamerPage = null;
   },
 
   _getProperty: function (type, callback, recursive) {

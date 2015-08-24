@@ -3,6 +3,7 @@ var presentation = require('./services/presentation.js');
 var io = null;
 
 var ROOM_AUDIENCE = 'audience';
+var ROOM_BEAMER = 'beamer';
 var ROOM_REMOTE = 'remote';
 
 var remoteKey = null;
@@ -29,7 +30,7 @@ module.exports = function (app) {
         if (page) {
           socket.emit('page', page);
         }
-      });
+      }, ROOM_AUDIENCE);
 
       socket.on('remote', function (data) {
         var response = null;
@@ -43,15 +44,31 @@ module.exports = function (app) {
         }));
       });
 
+      socket.on('beamer', function (data) {
+        socket.join(ROOM_BEAMER);
+        socket.leave(ROOM_AUDIENCE);
+
+        presentation.getPage(function (page) {
+          if (page) {
+            socket.emit('page', page);
+          }
+        }, ROOM_BEAMER);
+      });
+
       socket.on('navigation', function (data) {
         var response = null;
 
         if (data.hasOwnProperty('type')) {
           if (false !== socket.rooms.indexOf(ROOM_REMOTE)) {
             presentation.updatePage(data.type);
+
             presentation.getPage(function (page) {
               io.to(ROOM_AUDIENCE).emit('page', page);
-            });
+            }, ROOM_AUDIENCE);
+
+            presentation.getPage(function (page) {
+              io.to(ROOM_BEAMER).emit('page', page);
+            }, ROOM_BEAMER);
 
             response = createSuccessResponse({
               message: 'Audience updated'

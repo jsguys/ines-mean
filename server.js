@@ -19,6 +19,11 @@ app.get('/wifi', function (req, res) {
   res.send(require('./config/wifi.js'));
 });
 
+app.use(function (req, res, next) {
+  // TODO: render 404 page
+  res.status(404).send('This page does not exist.');
+});
+
 app.set('port', appConfig.port);
 
 var server = http.createServer(app);
