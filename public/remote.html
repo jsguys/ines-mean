@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html ng-app="presentation">
+<head lang="de">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1">
+  <title>INES Presentation</title>
+  <link href="/vendor/foundation/css/normalize.min.css" rel="stylesheet" media="screen">
+  <link href="/vendor/foundation/css/foundation.min.css" rel="stylesheet" media="screen">
+  <link href="/css/style.min.css" rel="stylesheet" media="screen">
+  <script src="/socket.io/socket.io.js"></script>
+</head>
+
+<body ng-controller="PresentationController as presentationCtrl">
+  <presentation></presentation>
+  <div id="remote" class="row" ng-controller="RemoteController as remoteCtrl" ng-show="remoteCtrl.isActive()">
+    <div ng-show="remoteCtrl.isConnected()">
+      <div class="columns small-3 previous" ng-click="remoteCtrl.previousPage()"></div>
+      <div class="columns small-9 next" ng-click="remoteCtrl.nextPage()"></div>
+    </div>
+    <div class="warn" ng-show="remoteCtrl.isDenied()">
+      <p>Fernbedienen fehlgeschlagen!</p>
+    </div>
+    <div ng-show="remoteCtrl.isLogin()">
+      <form name="loginForm" ng-submit="remoteCtrl.login()" novalidate>
+        <input type="password" name="password" placeholder="Passwort" ng-model="remoteCtrl.password">
+        <input type="submit" name="submit" value="Login">
+      </form>
+    </div>
+  </div>
+
+  <script src="/vendor/angular/angular.min.js"></script>
+  <script src="/js/app.min.js"></script>
+</body>
+</html>

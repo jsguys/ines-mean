@@ -1,0 +1,9 @@
+{
+  "name": "inespresentation",
+  "dependencies": {
+    "angular": "~1.4.4",
+    "angular-route": "~1.4.4",
+    "code-prettify": "google/code-prettify",
+    "foundation": "~5.5.2"
+  }
+}
