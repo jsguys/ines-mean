@@ -42,13 +42,13 @@ module.exports = {
 
     switch (type) {
       case 'next':
-        if (null !== self._order.successor) {
+        if (null !== self._order && null !== self._order.successor) {
           self._presentation.currentOrderId = self._order.successor;
         }
         break;
 
       case 'previous':
-        if (null !== self._order.predecessor) {
+        if (null !== self._order && null !== self._order.predecessor) {
           self._presentation.currentOrderId = self._order.predecessor;
         }
         break;
