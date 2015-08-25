@@ -20,6 +20,9 @@ angular.module('presentation').controller('PresentationController', [
 
     self.updatePage = function (page) {
       $scope.page = page;
+      setTimeout(function () {
+        PR.prettyPrint();
+      }, 500)
     };
 
     self.updatePresentation = function (presentation) {

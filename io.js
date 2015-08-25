@@ -28,14 +28,15 @@ module.exports = function (app) {
             if (numberOfPages) {
               socket.emit('numberOfPages', numberOfPages);
             }
-          });
-        }
-      });
+            presentation._order = null;
 
-      presentation.getPage(function (page, current) {
-        if (page) {
-          var data = {page: page, current: current};
-          socket.emit('page', data);
+            presentation.getPage(function (page, current) {
+              if (page) {
+                var data = {page: page, current: current};
+                socket.emit('page', data);
+              }
+            });
+          });
         }
       });
 
