@@ -12,8 +12,13 @@ angular.module('presentation').factory('WebSocket', [
 
       socket.on('page', function (data) {
         console.log('received page', data);
-        controller.updatePage(data);
-        $rootScope.$apply();
+        if (data) {
+          controller.updatePage(data.page);
+          controller.updateCurrent(data.current);
+          controller.updateProgressBar();
+          $rootScope.$apply();
+
+        }
       });
 
       socket.on('presentation', function (data) {
@@ -42,6 +47,13 @@ angular.module('presentation').factory('WebSocket', [
 
       socket.on('navigation', function (data) {
         console.log('received navigation', data);
+      });
+
+      socket.on('numberOfPages', function (data) {
+        console.log('received number of pages', data);
+        controller.updateNumberOfPages(data);
+        controller.updateProgressBar();
+        $rootScope.$apply();
       });
     };
 

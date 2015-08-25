@@ -20,14 +20,22 @@ module.exports = function (app) {
         listeners: listeners
       });
 
-      presentation.getPresentation(function (presentation) {
-        if (presentation) {
-          socket.emit('presentation', presentation);
+      presentation.getPresentation(function (received) {
+        if (received) {
+          socket.emit('presentation', received);
+
+          presentation.getNumberOfPages(function (numberOfPages) {
+            if (numberOfPages) {
+              socket.emit('numberOfPages', numberOfPages);
+            }
+          });
         }
       });
-      presentation.getPage(function (page) {
+
+      presentation.getPage(function (page, current) {
         if (page) {
-          socket.emit('page', page);
+          var data = {page: page, current: current};
+          socket.emit('page', data);
         }
       });
 
@@ -45,12 +53,12 @@ module.exports = function (app) {
 
       socket.on('navigation', function (data) {
         var response = null;
-
         if (data.hasOwnProperty('type')) {
           if (false !== socket.rooms.indexOf(ROOM_REMOTE)) {
             presentation.updatePage(data.type);
-            presentation.getPage(function (page) {
-              io.to(ROOM_AUDIENCE).emit('page', page);
+            presentation.getPage(function (page, current) {
+              var data = {page: page, current: current} ;
+              io.to(ROOM_AUDIENCE).emit('page', data);
             });
 
             response = createSuccessResponse({

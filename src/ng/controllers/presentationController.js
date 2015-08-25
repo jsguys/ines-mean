@@ -7,6 +7,8 @@ angular.module('presentation').controller('PresentationController', [
     $scope.listeners = 0;
     $scope.page = {};
     $scope.presentation = {};
+    $scope.numberOfPages = 0;
+    $scope.currentPage = 0;
 
     self.setChapters = function (data) {
       $scope.chapters = data.chapters;
@@ -22,6 +24,21 @@ angular.module('presentation').controller('PresentationController', [
 
     self.updatePresentation = function (presentation) {
       $scope.presentation = presentation;
+    };
+
+    self.updateNumberOfPages = function (pages) {
+      $scope.numberOfPages = pages;
+    };
+
+    self.updateCurrent = function (current) {
+      $scope.currentPage = current;
+    };
+
+    self.updateProgressBar = function () {
+      if ($scope.numberOfPages !== 0) {
+        var percent = ($scope.currentPage / $scope.numberOfPages) * 100;
+        document.getElementById('progress-bar').style.width = percent + '%';
+      }
     };
 
     self.formatDate = function (date) {
