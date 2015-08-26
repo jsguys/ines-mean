@@ -99,6 +99,7 @@ h1 {
   border-top-style: solid;
   border-top-width: 1px;
   background-color: rgba(255, 255, 255, 0.9);
+  z-index: 2000;
 
   p {
     margin-top: 0.5em;
@@ -108,7 +109,7 @@ h1 {
     margin-top: 0.75em;
   }
 
-  .listeners > span {
+  .info-bar > span {
     display: inline-block;
     border-radius: 100%;
     padding: 0.25em 0.6em;
@@ -116,7 +117,11 @@ h1 {
     color: #fff;
   }
 
-  .listeners > i {
+  .info-bar > i.glyphicons-fullscreen {
+    cursor: pointer;
+  }
+
+  .info-bar > i {
     font-size: 1.2em;
     padding-top: 0.2em;
     padding-right: 0.5em;
@@ -133,4 +138,26 @@ h1 {
   -webkit-transition: width 1s; /* Safari and Chrome */
   -o-transition: width 1s; /* Opera */
   height: 0.5em;
+}
+
+#overlay-fullscreen {
+  z-index: 1000;
+  -moz-transition: display 1s; /* Firefox 4 */
+  -webkit-transition: display 1s; /* Safari and Chrome */
+  -o-transition: display 1s; /* Opera */
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.8);
+
+  button {
+    background: $blue;
+    color: #fff;
+    font-size: 1.2em;
+    padding: 0.5em 1.5em;
+    border: none;
+    border-radius: 0.2em;
+  }
 }

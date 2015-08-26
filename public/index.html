@@ -13,9 +13,8 @@
 
 <body ng-controller="PresentationController as presentationCtrl">
   <div class="show-for-landscape">
-    <input type="button" onclick="giveMeFullScreen()" value="Get it!">
     <presentation></presentation>
-    <!--<remote></remote>-->
+    <remote></remote>
   </div>
   <div class="show-for-portrait">
     <div class="row">
@@ -27,7 +26,7 @@
     </div>
   </div>
   <script>
-    var giveMeFullScreen = function () {
+    var changeToFullscreen = function () {
       var elem = document.body;
 
       if (elem.requestFullscreen) {
