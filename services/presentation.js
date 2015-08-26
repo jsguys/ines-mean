@@ -7,7 +7,6 @@ module.exports = {
   _page: null,
   _pending: {},
   _presentation: null,
-  _chapters: null,
   _numberOfPages: 0,
   _current: 0,
 
