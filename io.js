@@ -28,7 +28,9 @@ module.exports = function (app) {
             if (numberOfPages) {
               socket.emit('numberOfPages', numberOfPages);
             }
+
             presentation._order = null;
+            presentation._page = null;
 
             presentation.getPage(function (page, current) {
               if (page) {
