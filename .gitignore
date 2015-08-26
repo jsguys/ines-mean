@@ -33,6 +33,6 @@ config/wifi.js
 app.sublime-workspace
 
 # generated files
-public/css
-public/js
-public/data
+public/css/style.min.css
+public/css/glyphicons
+public/js/app.min.js
