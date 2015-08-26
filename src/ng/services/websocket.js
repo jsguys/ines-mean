@@ -17,7 +17,6 @@ angular.module('presentation').factory('WebSocket', [
           controller.updateCurrent(data.current);
           controller.updateProgressBar();
           $rootScope.$apply();
-
         }
       });
 

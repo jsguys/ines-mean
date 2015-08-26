@@ -9,6 +9,7 @@ module.exports = {
   _presentation: null,
   _numberOfPages: 0,
   _current: 0,
+  _chapter: null,
 
   getPresentation: function (callback) {
     this._getProperty('presentation', callback);
@@ -33,6 +34,16 @@ module.exports = {
     else {
       callback(self._page, self._current);
     }
+  },
+
+  getChapters: function (callback) {
+    this._getProperty('chapter', function (chapters) {
+      chapters.sort(function (a, b) {
+        return a.rank - b.rank;
+      });
+
+      callback(chapters);
+    });
   },
 
   updatePage: function (type) {
@@ -151,7 +162,10 @@ module.exports = {
           json = JSON.parse(json);
 
           if (json.success) {
-            json = (undefined !== json.data[0]) ? json.data[0] : json.data;
+            json = json.data;
+            if (undefined !== json[0] && 1 === json.length) {
+              json = json[0];
+            }
             self._notify(type, json);
           } else {
             self._notify(type);
@@ -174,10 +188,12 @@ module.exports = {
   _notify: function(type, dataSet) {
     var self = this;
 
-    while (0 < self._pending[type].length) {
-      self._pending[type].shift()(dataSet);
-    }
+    if (self._pending.hasOwnProperty(type)) {
+      while (0 < self._pending[type].length) {
+        self._pending[type].shift()(dataSet);
+      }
 
-    delete self._pending[type];
+      delete self._pending[type];
+    }
   }
 };

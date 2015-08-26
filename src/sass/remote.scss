@@ -3,7 +3,7 @@
 #remote {
 
   .fullscreen {
-    bottom: 0;
+    bottom: 3em;
     position: fixed;
     top: 0;
     z-index: 1000;
@@ -11,13 +11,12 @@
 
   .next {
     @extend .fullscreen;
-    background-color: $trans-green;
+    border-left: 1px solid #0d3;
     right: 0;
   }
 
   .previous {
     @extend .fullscreen;
-    background-color: $trans-red;
     left: 0;
   }
 }

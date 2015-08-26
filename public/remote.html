@@ -13,7 +13,21 @@
 
 <body ng-controller="PresentationController as presentationCtrl">
   <presentation></presentation>
-  <remote></remote>
+  <div id="remote" class="row" ng-controller="RemoteController as remoteCtrl" ng-show="remoteCtrl.isActive()">
+    <div ng-show="remoteCtrl.isConnected()">
+      <div class="columns small-3 previous" ng-click="remoteCtrl.previousPage()"></div>
+      <div class="columns small-9 next" ng-click="remoteCtrl.nextPage()"></div>
+    </div>
+    <div class="warn" ng-show="remoteCtrl.isDenied()">
+      <p>Fernbedienen fehlgeschlagen!</p>
+    </div>
+    <div ng-show="remoteCtrl.isLogin()">
+      <form name="loginForm" ng-submit="remoteCtrl.login()" novalidate>
+        <input type="password" name="password" placeholder="Passwort" ng-model="remoteCtrl.password">
+        <input type="submit" name="submit" value="Login">
+      </form>
+    </div>
+  </div>
 
   <script src="/vendor/angular/1.4.2/angular.min.js"></script>
   <script src="/js/app.min.js"></script>

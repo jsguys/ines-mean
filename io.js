@@ -42,6 +42,12 @@ module.exports = function (app) {
         }
       });
 
+      presentation.getChapters(function (chapters) {
+        socket.emit('chapter', {
+          chapters: chapters
+        });
+      });
+
       socket.on('remote', function (data) {
         var response = null;
 
