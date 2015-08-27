@@ -1,17 +1,20 @@
 <!DOCTYPE html>
 <html ng-app="presentation">
-<head>
+<head lang="de">
   <meta charset="UTF-8">
-  <title>wifi &ndash; jsguys</title>
+  <meta name="viewport" content="minimal-ui,width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1">
+  <title>INES Presentation</title>
   <link href="/vendor/normalize/3.0.3/normalize.css" rel="stylesheet" media="screen">
   <link href="/vendor/foundation/5.5.2/foundation.min.css" rel="stylesheet" media="screen">
   <link href="/css/style.min.css" rel="stylesheet" media="screen">
+  <link href="/vendor/glyphicons/1.9/css/glyphicons.min.css" rel="stylesheet" media="screen">
+  <script src="/socket.io/socket.io.js"></script>
 </head>
+
 <body>
-  <div id="wifi">
+  <header role="header" id="header"><div class="row"><div class="columns small-12 logo show-for-large-up"><h1>WiFi</h1></div></div><div class="show-for-large-up border-color-blue bold-border"></div><div class="hide-for-large-up border-color-blue thin-border"></div></header><main role="main" id="content"><div class="row">
+<div id="wifi">
     <div class="row clearfix" ng-controller="WifiController as wifiCtrl">
-        <h1>WIFI</h1>
-        
         <div class="columns small-12 medium-6">
           <p>SSID</p>
         </div>
@@ -29,6 +32,15 @@
             <strong>{{wifiCtrl.wifi.password}}</strong>
           </p>
         </div>
+
+        <div class="columns small-12 medium-6">
+          <p>URL</p>
+        </div>
+        <div class="columns small-12 medium-6">
+          <p>
+            <strong>{{wifiCtrl.wifi.url}}</strong>
+          </p>
+        </div>
       </div>
 
       <div class="columns small-12 center">
@@ -36,7 +48,8 @@
       </div>
     </div>
   </div>
-
+  </div></main><footer role="contentinfo" id="footer" class="border-color-gray-light"><div class="row"><p class="columns medium-5 large-4 small-6 title">MEAN Stack</p><p class="columns small-6 medium-5 large-4 info-bar right"></p></div></footer>
+  
   <script src="/vendor/angular/1.4.2/angular.min.js"></script>
   <script src="/js/app.min.js"></script>
 </body>
