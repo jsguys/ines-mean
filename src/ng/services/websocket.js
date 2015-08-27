@@ -11,7 +11,6 @@ angular.module('presentation').factory('WebSocket', [
       }
 
       socket.on('page', function (data) {
-        console.log('received page', data);
         if (data) {
           controller.updatePage(data.page);
           controller.updateCurrent(data.current);
@@ -21,35 +20,21 @@ angular.module('presentation').factory('WebSocket', [
       });
 
       socket.on('presentation', function (data) {
-        console.log('received presentation', data);
         controller.updatePresentation(data);
         $rootScope.$apply();
       });
 
       socket.on('chapter', function (data) {
-        console.log('received chapter', data);
         controller.setChapters(data);
         $rootScope.$apply();
       });
 
       socket.on('listeners', function (data) {
-        console.log('received listeners', data);
         controller.setListeners(data);
         $rootScope.$apply();
       });
 
-      socket.on('remote', function (data) {
-        console.log('received remote', data);
-        //$scope.start(data);
-        $rootScope.$apply();
-      });
-
-      socket.on('navigation', function (data) {
-        console.log('received navigation', data);
-      });
-
       socket.on('numberOfPages', function (data) {
-        console.log('received number of pages', data);
         controller.updateNumberOfPages(data);
         controller.updateProgressBar();
         $rootScope.$apply();
