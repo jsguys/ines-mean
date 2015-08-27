@@ -4,6 +4,7 @@ var path = require('path');
 
 mongoose.connection.on('error', function (err) {
     console.log('[MongoDB Driver] Error while trying to connect');
+	console.log(err);
 });
 
 db._models = [];
