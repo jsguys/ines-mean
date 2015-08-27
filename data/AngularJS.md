@@ -12,23 +12,27 @@
 * 2009: Entwicklung von Adam Abrons & Miško Hevery
 * 2010: Open Source auf GitHub
 * 2010: Weiterentwicklung durch Google
-* 2015: Ankündigung von AngularJS 2.0
+* 2015: Ankündigung von AngularJS 2
 
-## Expressions
+## Scope
 
-```html
-<p>4 + 4 = {{ 4 + 4 }}</p>
-```
+* Angular Service: $scope
+* Gültig im aktuellen Bereich
+* Singleton innerhalb eines Bereichs
+
 
 ## Directives
 
 * Logik durch HTML Attribute (*ng-**) und Tags
-* Trennung Logik & HTML
+* Trennung von Logik & HTML
+
+
+## Beispiel: Directives
 
 ```html
 <html ng-app="ines">
   <div ng-show="true">
-    <p>Hello World</p>
+    <p>Hello World!</p>
   </div>
 </html>
 ```
@@ -44,18 +48,45 @@
 {{ 2.81 | currency }}
 ```
 
-## two-way data binding
+## Two-Way Data Binding
 
 * Aktualisierung von Inhalten
 * Reaktion auf User
 * Erkennung durch $scope
-* Erklärung mit Bild
-  
-  ![Bild](https://angularjs.de/assets/figures/binding-types-c6d3761feda6211a53fd9260194faf23a6caa7d5d47fb29c64b80147402d0ff0.png)
+* Dirty Checking
 
----
+
+## Two-Way Data Binding
+
+![Bild](https://angularjs.de/assets/figures/binding-types-c6d3761feda6211a53fd9260194faf23a6caa7d5d47fb29c64b80147402d0ff0.png)
+
+
+## Demo: Two-Way Data Binding
 
 * demo mit form
+
+```javascript
+// demoController.js
+angular.module('presentation').controller('DemoController', [
+  '$scope',
+  function ($scope) {
+    $scope.model = {
+      name: ''
+    };
+});
+```
+
+```html
+<!-- demo.html -->
+<div ng-controller="DemoController as demoCtrl" class="demo angular">
+  <form name="demo-form" ng-submit="return false;">
+    <label for="user">Hallo {{model.name}}!</label>
+    <br>
+    <input id="user" name="user" placeholder="Name!" ng-model="model.name">
+  </form>
+</div>
+```
+
 
 ## Dependency Injection
 
@@ -63,6 +94,9 @@
 * Hoche Wiederverwertung
 * Instanziierung durch Injector
 * Abstraktion und Testbarkeit
+
+
+## Beispiel: Dependency Injection
 
 ```javascript
 app.controller('MyController',
@@ -86,18 +120,26 @@ $http.get('/get/magic/maik/')
   });
 ```
 
-## Tests
 
-* Einfach testbar durch DI / Module
-* Karma
+## Vor- & Nachteile
+
+#### Pro
+* Modular
+* Trennung Logik & Templates
+* Testbar
+* Two-way data binding
+
+#### Con
+* Angular 2
+* Lernkurve
+* Komplexität
 
 
 ## Vergleich zu HTML & jQuery
 
 * Wiederverwendung
-* Bessere Aufteilung
-* Trennung Logik & Templates
 * Keine DOM-Manipulation
+* Single-Page-Apps
 
 
 ## Zukunft / Ausblick
@@ -106,9 +148,3 @@ $http.get('/get/magic/maik/')
 * Große Community + Google
 
 * AngularJS 2 mit neuer Basis
-
-
-## Think tank
-
-* Quiz am Ende der Präsentation
-* Umbau von Orders auf Basis von Audience, Beamer und Remote
